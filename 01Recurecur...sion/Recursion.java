@@ -9,6 +9,9 @@ public class Recursion {
 	if (n < 0) {
 	    throw new IllegalArgumentException();
 	}
+	if (n == 0) {
+	    return 0;
+	}
 	return sqrt(n, n / 30);
     }
     
@@ -25,7 +28,7 @@ public class Recursion {
 
     public static void main(String[]args) {
 	Recursion r = new Recursion();
-	System.out.println(r.sqrt(100));
+	System.out.println(r.sqrt(0));
 	System.out.println(r.sqrt(10));
 	System.out.println(r.sqrt(20));
 	System.out.println(r.sqrt(5));
