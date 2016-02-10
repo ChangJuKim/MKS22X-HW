@@ -1,27 +1,43 @@
-public class NQueens {
+public class QueenBoard {
     int[][] board;
 
-    public NQueens(int size) {
+    public QueenBoard(int size) {
 	board = new int[size][size];
     }
-    public NQueens() {
+    public QueenBoard() {
 	this(5);
+    }
+
+    public boolean placeQueens(int i, boolean backtracking) {
+	for (int j = 0; j < board[i].length; j++) {
+	    
+	}
     }
     
     //marks where the queen can attack
-    public void markNegatives(int i, int j) {
+    public void modifyQueen(int i, int j, boolean place) {
 	//preserves original values;
 	int x = i;
 	int y = j;
+	int offset;
+	if (place) {
+	    //adds a queen
+	    board[i][j] = 1;
+	    offset = -1;
+	} else {
+	    //removes a queen
+	    board[i][j] = 0;
+	    offset = 1;
+	}
 	//horizontal
 	for (j = j+1; j < board.length; j++) {
-	    board[i][j] -= 1;
+	    board[i][j] += offset;
 	}
 	//diagonal up
 	i = x - 1; //prevents queen's location from being marked
 	j = y + 1;
 	while (i >= 0 && j < board[i].length) {
-	    board[i][j] -= 1;
+	    board[i][j] += offset;
 	    i--;
 	    j++;
 	}
@@ -29,7 +45,7 @@ public class NQueens {
 	i = x + 1; //prevents queen's location from being marked
 	j = y + 1;
 	while (i < board.length && j < board[i].length) {
-	    board[i][j] -= 1;
+	    board[i][j] += offset;
 	    i++;
 	    j++;
 	}
@@ -55,7 +71,6 @@ public class NQueens {
 		ans += "|"; //right column border
 	    }
 	    ans += "\n"; //new row
-
 	}
 	for (int c = 0; c < board[0].length; c++) {
 	    ans += "--"; //bottom line
@@ -66,7 +81,7 @@ public class NQueens {
     public static void main(String[]args) {
 	NQueens test1 = new NQueens();
 	System.out.println(test1.toString());
-	test1.markNegatives(2, 2);
+	test1.modifyQueen(2, 2, true);
 	System.out.println(test1.toString());
     }
 }
