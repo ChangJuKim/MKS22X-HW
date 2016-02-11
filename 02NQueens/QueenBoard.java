@@ -12,6 +12,7 @@ public class QueenBoard {
 	return placeQueens(0);
     }
 
+
     
     //i == up/down, j == left/right
     public boolean placeQueens(int j) {
@@ -89,7 +90,12 @@ public class QueenBoard {
 		} else if (c % 2 == 0) {
 		    ans += "|"; //creates this: | | | | | |
 		} else {
-		    ans += board[r/2][c/2];
+		    //ans += board[r/2][c/2];
+		    if (board[r/2][c/2] == 1) {
+			ans += "Q";
+		    } else {
+			ans += " ";
+		    }
 		}
 	    }
 	    if (r % 2 == 0) {
