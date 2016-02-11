@@ -8,6 +8,12 @@ public class QueenBoard {
 	this(5);
     }
 
+    public boolean solve() {
+	return placeQueens(0);
+    }
+
+    
+    //i == up/down, j == left/right
     public boolean placeQueens(int j) {
 	if (j >= board.length) {
 	    return false;
@@ -16,7 +22,7 @@ public class QueenBoard {
 	    //if you can put a queen
 	    if (board[i][j] >= 0) {
 		modifyQueen(i, j, true);
-		System.out.println(toString());
+		//		System.out.println(toString());
 		if (j == board.length - 1 && board[i][j] == 1) {
 		    return true;
 		    //System.out.println("~~~~~~~~~~~~~~Was True~~~~~~~~~~~~~~~~~~~");
@@ -26,10 +32,10 @@ public class QueenBoard {
 		    return true;
 		}
 		else {
-		    System.out.println("~~~~~~~~~~~~~~Was False~~~~~~~~~~~~~~~~~~");
+		    //System.out.println("~~~~~~~~~~~~~~Was False~~~~~~~~~~~~~~~~~~");
 		    modifyQueen(i, j, false);
 		}
-		return false;
+
 	    }
 	}
 	return false;
@@ -100,7 +106,7 @@ public class QueenBoard {
     }
 
     public static void main(String[]args) {
-	QueenBoard test1 = new QueenBoard();
+	QueenBoard test1 = new QueenBoard(4);
 	System.out.println(test1.toString());
 	test1.placeQueens(0);
 	System.out.println(test1.toString());
