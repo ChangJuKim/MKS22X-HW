@@ -12,6 +12,11 @@ public class QueenBoard {
 	return placeQueens(0);
     }
 
+    public void printSolution() {
+	placeQueens(0);
+	System.out.println(toString());
+    }
+
 
     
     //i == up/down, j == left/right
