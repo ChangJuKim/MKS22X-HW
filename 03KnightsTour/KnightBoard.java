@@ -1,4 +1,7 @@
 public class KnightBoard {
+    final int[][] knightMoves = {{1, 2}, {1, -2}, {2, 1}, {2, -1}, {-1, 2}, {-1, -2}, {-2, 1}, {-2, -1}};
+    private boolean closedTour = false;
+    
     private int[][] board;
     private int counter;
     private boolean DEBUGComp = true;
@@ -13,14 +16,17 @@ public class KnightBoard {
 	if (DEBUGComp || DEBUG) {System.out.println(message);}
     }
     
-    public KnightBoard(int size, int initx, int inity) {
-	board = new int[size][size];
+    public KnightBoard(int sizex, int sizey, int initx, int inity) {
+	board = new int[sizex][sizey];
 	//	knightx = initx;
 	//	knighty = inity;
 	counter = 1;
     }
+    public KnightBoard(int sizex, int sizey) {
+	this(sizex, sizey, 0, 0);
+    }
     public KnightBoard(int size) {
-	this(size, 0, 0);
+	this(size, size, 0, 0);
     }
     public KnightBoard() {
 	this(4);
@@ -28,57 +34,35 @@ public class KnightBoard {
 
     //not working yet
     public boolean move(int knightx, int knighty, int counter) {
-	if (board[knightx][knighty] == 1) {
-	    debug("Returned true!!");
-	    return true;
+	//moves the knight
+	board[knightx][knighty] = counter;
+	debug(toString());
+	if (closedTour) {
+	    if (board[knightx][knighty] == 1) {
+		debug("Returned true!!");
+		return true;
+	    }
+	} else {
+	    if (counter == board.length * board[0].length) {
+		debug("Returned true!!");
+		return true;
+	    }
 	}
-	//can probably condense this by making an int array of deltax's and deltay's...
-	if (canMoveThere(knightx, knighty, 2, 1)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx+2, knighty+1, counter+1);
+	for (int i = 0; i < knightMoves.length; i++) {
+	    if (canMoveThere(knightx, knighty, knightMoves[i][0], knightMoves[i][1])) {
+		if (move(knightx + knightMoves[i][0], knighty + knightMoves[i][1], counter+1)) {
+		    return true;
+		}
+	    }
 	}
-	if (canMoveThere(knightx, knighty, 2, -1)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx+2, knighty-1, counter+1);
-	}
-	if (canMoveThere(knightx, knighty, 1, 2)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx+1, knighty+2, counter+1);
-	}
-	if (canMoveThere(knightx, knighty, 1, -2)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx+1, knighty-2, counter+1);
-	}
-	if (canMoveThere(knightx, knighty, -1, 2)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx-1, knighty+2, counter+1);
-	}
-	if (canMoveThere(knightx, knighty, -1, -2)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx-1, knighty-2, counter+1);
-	}
-	if (canMoveThere(knightx, knighty, -2, 1)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx-2, knighty+1, counter+1);
-	}
-	if (canMoveThere(knightx, knighty, -2, -1)) {
-	    board[knightx][knighty] = counter;
-	    move(knightx-2, knighty-1, counter+1);
-	}
-	debug("Returned false!!");
+	board[knightx][knighty] = 0;
 	return false;
     }
 
-    //    private void updateBoard(int knightx, int knighty, int deltax, int deltay) {
-    //	board[knightx][knighty] = counter;
-    //    }
-
     private boolean canMoveThere(int knightx, int knighty, int deltax, int deltay) {
-	debugComp(toString());
 	int newx = knightx + deltax;
 	int newy = knighty + deltay;
 	if (newx < 0 || newx >= board.length || newy < 0 || newy >= board[0].length) {
-	    debugComp("Cannot move -- off the board!");
 	    return false;
 	}
 	else if (board[newx][newy] > 0) {
@@ -106,7 +90,14 @@ public class KnightBoard {
 		} else if (c % 2 == 0) {
 		    ans += "|"; //creates this: | | | | | |
 		} else {
-		    ans += board[r/2][c/2];
+		    if (board[r/2][c/2] >= 10 || board[r/2][c/2] <= -10) {
+			//if it's a 2-digit number
+			ans += board[r/2][c/2];
+		    }
+		    else {
+			//if it's a 1-digit number
+			ans += " " + board[r/2][c/2];
+		    }
 		}
 	    }
 	    if (r % 2 == 0) {
@@ -123,8 +114,8 @@ public class KnightBoard {
     }
 
     public static void main(String[]args) {
-	KnightBoard b = new KnightBoard(6);
-	b.move(0,0,1);
+	KnightBoard b = new KnightBoard(5, 5);
+        b.move(0,0,1);
 	
     }
 }
