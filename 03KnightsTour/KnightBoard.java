@@ -4,8 +4,8 @@ public class KnightBoard {
     
     private int[][] board;
     private int counter;
-    private boolean DEBUGComp = true;
-    private boolean DEBUG = true;
+    private boolean DEBUGComp = false;
+    private boolean DEBUG = false;
 
     //comprehensive debugging
     private void debugComp(String message) {
@@ -30,6 +30,14 @@ public class KnightBoard {
     }
     public KnightBoard() {
 	this(4);
+    }
+    
+    public boolean solve() {
+	return move(0, 0, 1);
+    }
+
+    public void printSolution() {
+	System.out.println(toString());
     }
 
     //not working yet
@@ -114,8 +122,8 @@ public class KnightBoard {
     }
 
     public static void main(String[]args) {
-	KnightBoard b = new KnightBoard(5, 5);
-        b.move(0,0,1);
-	
+	KnightBoard b = new KnightBoard(3, 4);
+        b.solve();
+	b.printSolution();
     }
 }
