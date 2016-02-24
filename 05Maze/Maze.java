@@ -83,9 +83,22 @@ public class Maze{
             System.out.println(this);
             wait(20);
         }
-	
-        //COMPLETE SOLVE
-        return false; //so it compiles
+	if (maze[x][y] == 'E') {
+	    return true;
+	}
+	if (canMoveThere(x, y, 1, 0)) {
+	    return solve(x+1, y);
+	}
+	if (canMoveThere(x, y, 0, 1)) {
+	    return solve(x, y+1);
+	}
+	if (canMoveThere(x, y, -1, 0)) {
+	    return solve(x-1, y);
+	}
+	if (canMoveThere(x, y, 0, -1)) {
+	    return solve(x, y-1);
+	}
+        return false; //if it cannot move anywhere
     }
 
     private boolean canMoveThere(int x, int y, int deltax, int deltay) {
