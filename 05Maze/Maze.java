@@ -31,16 +31,16 @@ public class Maze{
 		rows += 1;
 		s += in.nextLine() + "\n";
 	    }
-	    //divides total length of board by rows (and subtracts 1 for the new line character)
-	    cols = s.length() / rows - 1;
+	    cols = s.length() / rows;
 
 	    maze = new char[rows][cols];
 	    //repurposed for maze indecies
 	    rows = 0;
 	    cols = 0;
 	    for (int i = 0; i < s.length(); i++) {
-		//unsure if works lol
-		maze[i / maze[0].length][i % maze[0].length] = s.charAt(i);
+		if (s.charAt(i) != '\n') {
+		    maze[i / maze[0].length][i % maze[0].length] = s.charAt(i);
+		}
 	    }
 	}
 	catch (FileNotFoundException ex) {
