@@ -42,16 +42,6 @@ public class Maze{
 		    maze[i / maze[0].length][i % maze[0].length] = s.charAt(i);
 		}
 	    }
-
-	    //finds the starting point (S)
-	    for (int i = 0; i < maze.length; i++) {
-		for (int j = 0; j < maze[0].length; j++) {
-		    if (maze[i][j] == 'S') {
-			startx = i;
-			starty = j;
-		    }
-		}
-	    }
 	}
 	catch (FileNotFoundException ex) {
 	    System.out.println("File not found!");
@@ -65,7 +55,17 @@ public class Maze{
        When no S is contained in maze, print an error and return false.
     */
     public boolean solve(){
-        if(startx < 0){
+	//finds the starting point (S)
+	for (int i = 0; i < maze.length; i++) {
+	    for (int j = 0; j < maze[0].length; j++) {
+		if (maze[i][j] == 'S') {
+		    startx = i;
+			starty = j;
+		}
+	    }
+	}
+	//if there is no S
+        if(startx == 0 && starty == 0){
             System.out.println("No starting point 'S' found in maze.");
             return false;
         }else{
@@ -94,10 +94,13 @@ public class Maze{
             wait(20);
         }
 	if (maze[x][y] == 'E') {
-	    System.out.println("Solved the maze!!");
 	    return true;
 	}
 	maze[x][y] = '@';
+	//makes sure the S doesn't get overriden
+	if (x == startx && y == starty) {
+	    maze[x][y] = 'S';
+	}
 	if (canMoveThere(x, y, 1, 0) && solve(x+1, y)) {
 	    return true;
 	}
@@ -126,6 +129,7 @@ public class Maze{
 	}
     }
 
+    /*
     public String toString() {
 	String ans = "";
 	for (int i = 0; i < maze.length; i++) {
@@ -136,6 +140,7 @@ public class Maze{
 	}
 	return ans;
     }
+    */
 
 
     //FREE STUFF!!! *you should be aware of this*
@@ -144,7 +149,7 @@ public class Maze{
         System.out.println(CLEAR_SCREEN);
     }
 
-    public String toString(boolean BasicallyOverridingThis){
+    public String toString(){
         int maxx = maze.length;
         int maxy = maze[0].length;
         String ans = "";
