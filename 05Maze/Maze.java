@@ -42,6 +42,16 @@ public class Maze{
 		    maze[i / maze[0].length][i % maze[0].length] = s.charAt(i);
 		}
 	    }
+
+	    //finds the starting point (S)
+	    for (int i = 0; i < maze.length; i++) {
+		for (int j = 0; j < maze[0].length; j++) {
+		    if (maze[i][j] == 'S') {
+			startx = i;
+			starty = j;
+		    }
+		}
+	    }
 	}
 	catch (FileNotFoundException ex) {
 	    System.out.println("File not found!");
@@ -84,33 +94,47 @@ public class Maze{
             wait(20);
         }
 	if (maze[x][y] == 'E') {
+	    System.out.println("Solved the maze!!");
 	    return true;
 	}
-	if (canMoveThere(x, y, 1, 0)) {
-	    return solve(x+1, y);
+	maze[x][y] = '@';
+	if (canMoveThere(x, y, 1, 0) && solve(x+1, y)) {
+	    return true;
 	}
-	if (canMoveThere(x, y, 0, 1)) {
-	    return solve(x, y+1);
+	if (canMoveThere(x, y, 0, 1) && solve(x, y+1)) {
+	    return true;
 	}
-	if (canMoveThere(x, y, -1, 0)) {
-	    return solve(x-1, y);
+	if (canMoveThere(x, y, -1, 0) && solve(x-1, y)) {
+	    return true;
 	}
-	if (canMoveThere(x, y, 0, -1)) {
-	    return solve(x, y-1);
+	if (canMoveThere(x, y, 0, -1) && solve(x, y-1)) {
+	    return true;
 	}
+	maze[x][y] = '.';
         return false; //if it cannot move anywhere
     }
 
     private boolean canMoveThere(int x, int y, int deltax, int deltay) {
-	if (maze[x+deltax][y+deltay] == '#' || maze[x+deltax][y+deltay] == '.') {
+	if (maze[x+deltax][y+deltay] == '#' || maze[x+deltax][y+deltay] == '.' || maze[x+deltax][y+deltay] == '@') {
 	    return false;
-	} else if (maze[x+deltax][y+deltay] == ' ') {
+	} else if (maze[x+deltax][y+deltay] == ' ' || maze[x+deltax][y+deltay] == 'E') {
 	    return true;
 	} else {
 	    System.out.println("We have some funky things in our maze!!");
 	    //better not to test unknown features in our maze!!
 	    return false;
 	}
+    }
+
+    public String toString() {
+	String ans = "";
+	for (int i = 0; i < maze.length; i++) {
+	    for (int j = 0; j < maze[i].length; j++) {
+		ans += maze[i][j];
+	    }
+	    ans += '\n';
+	}
+	return ans;
     }
 
 
@@ -120,7 +144,7 @@ public class Maze{
         System.out.println(CLEAR_SCREEN);
     }
 
-    public String toString(){
+    public String toString(boolean BasicallyOverridingThis){
         int maxx = maze.length;
         int maxy = maze[0].length;
         String ans = "";
