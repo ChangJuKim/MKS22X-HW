@@ -48,7 +48,18 @@ public class Sorts{
 	
     }
 
-    public static int[] mergeSort(int[] data1, int[] data2) {
+    //a non-efficient way of sorting data, but still works
+    public static int[] mergesort(int[] data) {
+	int[] ans = new int[] {};
+	for (int i = 0; i < data.length; i++) {
+	    ans = merge(ans, new int[] {data[i]});
+	    System.out.println(toString(ans));
+	}
+	return ans;
+    }
+
+    //gets two sorted arrays and returns one merged sorted array
+    public static int[] merge(int[] data1, int[] data2) {
         int[] ans = new int[data1.length+data2.length];
 	//loops through data1 and 2
         int counter1 = 0;
@@ -108,9 +119,15 @@ public class Sorts{
     }
 
     public static void main(String[]args) {
+	/*
 	int[] ary1 = new int[] {0, 10, 20, 30, 40};
 	int[] ary2 = new int[] {9, 11};
-	System.out.println(toString(mergeSort(ary1, ary2)));
-	
+	System.out.println(toString(merge(ary1, ary2)));
+	int[] ary3 = new int[] {};
+	int[] ary4 = new int[] {3};
+	System.out.println(toString(merge(ary4, ary3)));
+	int[] ary5 = new int[] {100, 5, 2, 30};
+	System.out.println(toString(mergesort(ary5)));
+	*/
     }
 }
