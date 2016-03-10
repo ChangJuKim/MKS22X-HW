@@ -71,6 +71,17 @@ public class Quick {
 	return ans + "]";
     }
 
+    public static void quickSort(int[]data) {
+	quickSort(data, 0, data.length-1);
+    }
+
+    private static void quickSort(int[]data, int left, int right) {
+	if (left < right) {
+	    int index = partition(data, left, right);
+	    quickSort(data, left, index-1);
+	    quickSort(data, index, right);
+	}
+    }
     
     private static int[] swap(int[]data, int index1, int index2) {
 	int temp = data[index1];
@@ -86,9 +97,7 @@ public class Quick {
     public static void main(String[]args) {
 	/*
 	int[] ary1 = new int[] {4, 5, 2, 6, 1, 0};
-	System.out.println(quickselect(ary1, 0));
-	*//*
-	System.out.println(partition(ary1, 3, ary1.length-4));
+	quickSort(ary1, 0, ary1.length-4);
 	System.out.println(toString(ary1));
 	*/
     }
