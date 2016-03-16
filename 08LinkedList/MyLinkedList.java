@@ -91,12 +91,21 @@ public class MyLinkedList {
 
     //need to edit from below this!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public int remove(int index) {
-	LNode current = this;
+	LNode current = head;
+	if (index == 0) {
+	    if (head != null) {
+		head = head.getNext();
+	    }
+	    else {
+		System.out.println("Removing a null object!");
+	    }
+	}
 	int counter = 0;
 	while (counter < index-1) {
-	    current = next;
+	    current = current.getNext();
 	    counter += 1;
 	}
+	
 	int removedValue = next.data;
 	next = next.next;
 	return removedValue;
