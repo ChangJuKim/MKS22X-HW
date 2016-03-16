@@ -37,6 +37,20 @@ public class MyLinkedList {
 	    return true;
 	}
 
+	public boolean add(int index, int value) {
+	    LNode current = this;
+	    int counter = 0;
+	    while (counter < index - 1) {
+		current = next;
+		counter += 1;
+	    }
+	    LNode tail = current.next;
+	    current.next = new LNode();
+	    current.next.next = tail;
+	    current.data = value;
+	    return true;
+	}
+
 	//gets the value at the index
 	//assumes index is within bounds
 	public int get(int index) {
@@ -59,7 +73,22 @@ public class MyLinkedList {
 	    current.data = value;
 	    return true;
 	}
+
+	public int remove(int index) {
+	    LNode current = this;
+	    int counter = 0;
+	    while (counter < index-1) {
+		current = next;
+		counter += 1;
+	    }
+	    int removedValue = next.data;
+	    next = next.next;
+	    return removedValue;
+	}
+
     }
+    
+    
 
     public static void main(String[]args) {
 	MyLinkedList m = new MyLinkedList();
