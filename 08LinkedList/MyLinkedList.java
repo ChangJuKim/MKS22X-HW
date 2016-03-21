@@ -1,9 +1,11 @@
 public class MyLinkedList {
     public LNode head;
     public int size;
+    private LNode end;
 
     public MyLinkedList() {
 	head = new LNode();
+	end = head;
     }
     
     private class LNode {
@@ -40,6 +42,7 @@ public class MyLinkedList {
 
     //adds value to end
     public boolean add(int value) {
+	/*
 	LNode current = head;
 	if (head == null) {
 	    head = new LNode(value);
@@ -48,6 +51,10 @@ public class MyLinkedList {
 	    current = current.getNext();
 	}
 	current.setNext(new LNode(value));
+	end = current.getNext();
+	*/
+	end.setNext(new LNode(value));
+	end = end.getNext();
 	size += 1;
 	return true;
     }
@@ -55,12 +62,11 @@ public class MyLinkedList {
     public boolean add(int index, int value) {
 	LNode current = head;
 	if (index == 0) {
-	    //placeholder
-	    current = head;
 	    head = new LNode(value);
 	    head.setNext(current);
+	    return true;
 	}
-	//gets to the right location
+	//moves current to immediately before insertion point
 	int counter = 0;
 	while (counter < index - 1) {
 	    current = current.getNext();
@@ -70,6 +76,9 @@ public class MyLinkedList {
 	LNode tail = current.getNext();
 	current.setNext(new LNode(value));
 	current.getNext().setNext(tail);
+	if (current == end) {
+	    end = current.getNext();
+	}
 	size += 1;
 	return true;
     }
@@ -148,6 +157,7 @@ public class MyLinkedList {
 		return index;
 	    }
 	    index += 1;
+	    current = current.getNext();
 	}
 	return -1;
     }
@@ -161,19 +171,14 @@ public class MyLinkedList {
       size
       set
       remove
-
-      Need to test:
-
       indexOf
-
-      Errors:
-
       add(int, int);
+
     */
     public static void main(String[]args) {
 	MyLinkedList m = new MyLinkedList();
 	System.out.println("~~~~~~~~~~~~~~~Creating list~~~~~~~~~~~~~~~\n");
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 20; i++) {
 	    m.add(i);
 	    System.out.println(i+" List: "+m.toString());
 	}
@@ -187,10 +192,12 @@ public class MyLinkedList {
 	    m.set(m.size()-i-1, i);
 	    System.out.println(m.toString());
 	}
-
-	/*
 	System.out.println("\n\n~~~~~~~~~~~Adding values at index~~~~~~\n");
-        
+
+	System.out.println(m.toString());
+	m.add(0, 10);
+	System.out.println(m.toString());
+	
 	m.add(0, 30);
 	System.out.println(m.toString());
 	m.add(2, 40);
@@ -198,13 +205,12 @@ public class MyLinkedList {
 	m.add(6, 50);
 	System.out.println(m.toString());
 
-	*/
 
 	System.out.println("\n\n~~~~~~~~~~~Getting Index of values~~~~\n");
 
 	System.out.println(m.toString());
 	for (int i = 0; i < m.size(); i++) {
-	    System.out.println(m.indexOf(i));
+	    System.out.println("The index of "+i+": "+m.indexOf(i));
 	}
 	
 	System.out.println("\n\nSize: "+m.size());
