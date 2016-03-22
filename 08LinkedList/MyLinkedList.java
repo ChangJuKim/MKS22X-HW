@@ -1,4 +1,4 @@
-public class MyLinkedList {
+public class MyLinkedList<T> {
     public LNode head;
     public int size;
     private LNode end;
@@ -7,19 +7,19 @@ public class MyLinkedList {
 	head = new LNode();
 	end = head;
     }
-    
+
     private class LNode {
-	public int data;
+	public T data;
 	public LNode next;
 	
 	public LNode() {
 	    
 	}
-	public LNode(int value) { data = value; }
+	public LNode(T value) { data = value; }
 
-	public int getData() { return data; }
+	public T getData() { return data; }
 	public LNode getNext() { return next; }
-	public void setData(int v) { data = v; }
+	public void setData(T v) { data = v; }
 	public void setNext(LNode n) { next = n; }
     }
 
@@ -41,7 +41,7 @@ public class MyLinkedList {
     }
 
     //adds value to end
-    public boolean add(int value) {
+    public boolean add(T value) {
 	/*
 	LNode current = head;
 	if (head == null) {
@@ -59,7 +59,7 @@ public class MyLinkedList {
 	return true;
     }
 
-    public boolean add(int index, int value) {
+    public boolean add(int index, T value) {
 	LNode current = head;
 	if (index == 0) {
 	    head = new LNode(value);
@@ -85,7 +85,7 @@ public class MyLinkedList {
 
     //gets the value at the index
     //assumes index is within bounds
-    public int get(int index) {
+    public T get(int index) {
 	LNode current = head;
 	int counter = 0;
 	while (counter < index) {
@@ -95,7 +95,7 @@ public class MyLinkedList {
 	return current.getData();
     }
 
-    public boolean set(int index, int value) {
+    public boolean set(int index, T value) {
 	LNode current = head;
 	int counter = 0;
 	while (counter < index) {
@@ -106,7 +106,7 @@ public class MyLinkedList {
 	return true;
     }
 
-    public int remove(int index) {
+    public T remove(int index) {
 	if (index >= size() || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
@@ -125,7 +125,7 @@ public class MyLinkedList {
 	    }
 	}
 	
-	int removedValue = current.getNext().getData();
+	T removedValue = current.getNext().getData();
 	//skips over next list
 	current.setNext(current.getNext().getNext());
 	size -= 1;
@@ -153,7 +153,7 @@ public class MyLinkedList {
 	LNode current = head;
 	int index = 0;
 	while (current != null) {
-	    if (current.getData() == value) {
+	    if (current.getData().equals(value)) {
 		return index;
 	    }
 	    index += 1;
@@ -176,7 +176,7 @@ public class MyLinkedList {
 
     */
     public static void main(String[]args) {
-	MyLinkedList m = new MyLinkedList();
+	MyLinkedList<Integer> m = new MyLinkedList<Integer>();
 	System.out.println("~~~~~~~~~~~~~~~Creating list~~~~~~~~~~~~~~~\n");
 	for (int i = 0; i < 20; i++) {
 	    m.add(i);
