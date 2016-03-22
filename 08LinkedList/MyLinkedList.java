@@ -61,9 +61,13 @@ public class MyLinkedList<T> {
 
     public boolean add(int index, T value) {
 	LNode current = head;
+	if (index < 0 || index > size) {
+	    throw new IndexOutOfBoundsException();
+	}
 	if (index == 0) {
 	    head = new LNode(value);
 	    head.setNext(current);
+	    size += 1;
 	    return true;
 	}
 	//moves current to immediately before insertion point
@@ -84,8 +88,10 @@ public class MyLinkedList<T> {
     }
 
     //gets the value at the index
-    //assumes index is within bounds
     public T get(int index) {
+	if (index < 0 || index >= size) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode current = head;
 	int counter = 0;
 	while (counter < index) {
@@ -96,6 +102,9 @@ public class MyLinkedList<T> {
     }
 
     public boolean set(int index, T value) {
+	if (index < 0 || index >= size) {
+	    throw new IndexOutOfBoundsException();
+	}
 	LNode current = head;
 	int counter = 0;
 	while (counter < index) {
@@ -219,21 +228,5 @@ public class MyLinkedList<T> {
 	    m.remove(m.size()-1);
 	    System.out.println(m.toString());
 	}
-	
-	/*
-	System.out.println("Start: "+m.toString());
-	m.add(1);
-	System.out.println("One list");
-	System.out.println(m.toString()+"\n");
-	
-	m.add(2);
-	System.out.println("Two list");
-	System.out.println(m.toString()+"\n");
-	
-	System.out.println("get0: "+m.start.get(0));
-	System.out.println("get1: "+m.start.get(1));
-	m.start.set(1, 3);
-	System.out.println("get1 after set1: "+m.start.get(1));
-	*/
     }
 }
