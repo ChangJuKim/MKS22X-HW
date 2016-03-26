@@ -25,8 +25,6 @@ public class MyLinkedList<T> {
 
     public int size() {	return size; }
     
-    //cannot handle circle lists
-    //cannot handle empty lists
     public String toString() {
 	String ans = "[";
 	LNode current = head;
@@ -36,6 +34,22 @@ public class MyLinkedList<T> {
 	    ans += current.getData() + ", ";
 	    current = current.getNext();
 	    index += 1;
+	}
+	return ans + "]";
+    }
+
+    public String toString(boolean b) {
+	String ans = "[";
+	LNode current = head;
+	int index = 0;
+	
+	while (index < size) {
+	    ans += current.getData() + ", ";
+	    current = current.getNext();
+	    index += 1;
+	}
+	if (b) {
+	    return ans + "] -- (head, tail): ("+head.getData()+", "+end.getData()+")";
 	}
 	return ans + "]";
     }
