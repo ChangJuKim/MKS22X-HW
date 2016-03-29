@@ -15,7 +15,7 @@ public class MyQueue<T> extends MyLinkedList<T>{
      */
     //removes from tail
     public T dequeue() {
-	if (size() == 0) {
+	if (isEmpty()) {
 	    throw new NoSuchElementException();
 	} else {
 	    return remove(size()-1);
@@ -27,7 +27,7 @@ public class MyQueue<T> extends MyLinkedList<T>{
      * @exception java.util.NoSuchElementException if the queue is empty.
      */
     public T peek() {
-	if (size == 0) {
+	if (isEmpty()) {
 	    throw new NoSuchElementException();
 	} else {
 	    return get(size()-1);
