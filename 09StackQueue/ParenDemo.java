@@ -6,33 +6,35 @@ public class ParenDemo extends MyStack<Character> {
     public static boolean isMatching(String s) {
 	for (int i = 0; i < s.length(); i++) {
 	    if (isOpen(s.charAt(i))) {
-		System.out.println("Stack: "+stack);
-		System.out.println("The character i'm pushing: "+s.charAt(i));
 		stack.push(s.charAt(i));
-		System.out.println("After opening: "+stack);
 	    }
 	    if (isClose(s.charAt(i))) {
-		System.out.println(stack);
-		System.out.println("Is the stack empty? "+stack.isEmpty());
-		System.out.println("Is the closing matching? "+stack.peek());
-		if (stack.isEmpty() || isMatches(stack.pop(), s.charAt(i))) {
-		    badMessage(s.charAt(i));
+		if (stack.isEmpty() || !isMatches(stack.pop(), s.charAt(i))) {
+		    badMessage(""+s.charAt(i));
 		    return false;
 		}
 	    }
 	}
-	return true;
+	if (stack.size() == 0) {
+	    return true;
+	}
+	String message = "";
+	for (int i = 0; i < stack.size();) {
+	    message += stack.remove(stack.size-1);
+	}
+	badMessage(message);
+	return false;
     }
 
     private static boolean isOpen(char c) {
-	System.out.println("Testing if "+c+" is open");
+	//System.out.println("Testing if "+c+" is open");
 	for (int i = 0; i < open.length; i++) {
 	    if (c == open[i]) {
-		System.out.println("It was...");
+		//System.out.println("It was...");
 		return true;
 	    }
 	}
-	System.out.println("It was not...");
+	//System.out.println("It was not...");
 	return false;
     }
 
@@ -46,7 +48,10 @@ public class ParenDemo extends MyStack<Character> {
     }
 
     private static boolean isMatches(char openChar, char closeChar) {
+	//System.out.println("Open, Close: "+openChar+" "+closeChar);
 	for (int i = 0; i < open.length; i++) {
+	    //System.out.println(open[i]+" -- "+(openChar == open[i]));
+	    //System.out.println(close[i]+" -- "+(closeChar == close[i]));
 	    if (open[i] == openChar && close[i] == closeChar) {
 		return true;
 	    }
@@ -54,12 +59,12 @@ public class ParenDemo extends MyStack<Character> {
 	return false;
     }
 
-    private static void badMessage(char c) {
-	System.out.println("No matching parens for "+c);
+    private static void badMessage(String s) {
+	System.out.println("No matching parens for "+s);
     }
 
     public static void main(String[]args) {
-	String input = "()()()";
+	String input = "(<><<()>{}{";
 	if (args.length > 0) {
 	    input = args[0];
 	}
