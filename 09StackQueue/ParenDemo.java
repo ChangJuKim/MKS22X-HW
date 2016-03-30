@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class ParenDemo extends MyStack<Character> {
     private static final char[] open = new char[]{'(', '[', '<', '{'};
     private static final char[] close = new char[]{')', ']', '>', '}'};
