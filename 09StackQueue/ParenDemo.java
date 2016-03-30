@@ -63,11 +63,15 @@ public class ParenDemo extends MyStack<Character> {
 	System.out.println("No matching parens for "+s);
     }
 
-    public static void main(String[]args) {
-	String input = "(<><<()>{}{";
-	if (args.length > 0) {
+    public static void main(String[]args){
+	String input = "()()(([[]]))";
+	if(args.length > 0){
 	    input = args[0];
+	    System.out.println( isMatching(input)); 
+	}else{
+	    System.out.println("Usage:"); 
+	    System.out.println("java ParenDemo \"text\""); 
 	}
-	System.out.println(isMatching(input));
+ 
     }
 }
