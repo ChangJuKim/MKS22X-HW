@@ -9,15 +9,22 @@ public class MyDeque<T> {
     public MyDeque() {
 	data = (T[]) new Object[10];
     }
-    /*
+
+    @SuppressWarnings("unchecked")
+    //puts the starting value at 0
     public T[] increaseSize(int newSize) {
-	T[] newData = new T[newSize];
+	T[] newData = (T[]) new Object[newSize];
 	int currIndex;
 	for (int i = 0; i < size; i++) {
 	    currIndex = (start + i) % size;
+	    newData[i] = data[currIndex];
 	}
+	start = 0;
+	end = size-1;
+	size = newSize;
+	return newData;
     }
-    */
+    
 
     //increases the start by 1
     //note: this will decrease size
@@ -27,12 +34,18 @@ public class MyDeque<T> {
     }
     
     public void addFirst(T n) {
+	if (size == data.length) {
+	    increaseSize(size + 10);
+	}
 	int index = (start - 1) % size;
 	data[index] = n;
 	size += 1;
     }
 
     public void addLast(T n) {
+	if (size == data.length) {
+	    increaseSize(size + 10);
+	}
 	int index = (end + 1) % size;
 	data[index] = n;
 	size += 1;
@@ -44,7 +57,7 @@ public class MyDeque<T> {
 	start = (start + 1) % size;
 	size -= 1;
 	return ans;
-    }
+    }  
 
     public T removeLast() {
 	checkNoElementException();
