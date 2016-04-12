@@ -12,6 +12,12 @@ public class Node {
 	coor[1] = y;
     }
 
+    public Node (int x, int y, Node prev) {
+	coor[0] = x;
+	coor[1] = y;
+	this.prev = prev;
+    }
+
     public void setCoor(int x, int y) {
 	coor[0] = x;
 	coor[1] = y;
