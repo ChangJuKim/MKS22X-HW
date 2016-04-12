@@ -7,6 +7,11 @@ public class Node {
 	coor[1] = 0;
     }
 
+    public Node(int x, int y) {
+	coor[0] = x;
+	coor[1] = y;
+    }
+
     public void setCoor(int x, int y) {
 	coor[0] = x;
 	coor[1] = y;
@@ -20,4 +25,5 @@ public class Node {
     public int getX() {return coor[0];}
     public int getY() {return coor[1];}
     public int[] getXY() {return coor;}
+    public Node getPrev() {return prev;}
 }
