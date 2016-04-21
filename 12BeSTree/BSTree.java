@@ -10,6 +10,10 @@ public class BSTree <T extends Comparable<T>> {
 	    data = value;
 	}
 
+	private boolean isEmpty() {
+	    return data == null;
+	}
+
 	public void add(T value) {
 	    if (isEmpty()) {
 		data = value;
@@ -28,6 +32,16 @@ public class BSTree <T extends Comparable<T>> {
 		    }
 		}
 	    }
+	}
+
+	public String toString() {
+	    String ans = "";
+	    if (isEmpty()) {
+		ans += "_";
+	    } else {
+		ans += ""+data+" "+left.toString()+" "+" "+right.toString();
+	    }
+	    return ans;
 	}
     }
 }
