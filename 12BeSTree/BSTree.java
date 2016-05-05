@@ -43,5 +43,32 @@ public class BSTree <T extends Comparable<T>> {
 	    }
 	    return ans;
 	}
+
+	public boolean contains(T value) {
+	    if (isEmpty()) {
+		return false;
+	    }
+	    else if (value.compareTo(data) == 0) {
+		return true;
+	    }
+	    else {
+		if (value.compareTo(data) > 0) {
+		    return right.contains(value);
+		}
+		else {
+		    return left.contains(value);
+		}
+	    }
+	}
+
+	public T remove(T value) {
+	    if (value.compareTo(data) > 0) {
+		return right.remove(value);
+	    }
+	    else if (value.compareTo(data) < 0) {
+		return left.remove(value);
+	    }
+	    
+	}
     }
 }
