@@ -61,14 +61,39 @@ public class BSTree <T extends Comparable<T>> {
 	    }
 	}
 
-	public T remove(T value) {
+	public int height() {
+	    if (isEmpty()) {
+		return 1;
+	    }
+	    return 1 + Math.max(left.height(), right.height());
+	}
+
+	public void remove(T value) {
+	    /* if (value.compareTo(data) == 0) {
+		
+	    }*/
 	    if (value.compareTo(data) > 0) {
-		return right.remove(value);
+		right.remove(value);
 	    }
 	    else if (value.compareTo(data) < 0) {
-		return left.remove(value);
+		left.remove(value);
 	    }
-	    
 	}
+    }
+
+    public int getHeight() {
+	return root.height();
+    }
+
+    public void add(T value) {
+	root.add(value);
+    }
+
+    public String toString() {
+	return root.toString();
+    }
+
+    public boolean contains(T value) {
+	return root.contains(value);
     }
 }
