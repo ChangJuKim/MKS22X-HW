@@ -60,6 +60,9 @@ public class MyHeap<T extends Comparable<T>>
     }
     
     public T delete() {
+	if (size == 0) {
+	    throw new NoSuchElementException();
+	}
         int index = 1;
 	T removedData = data[index];
 	while (index * 2 + 1 <= size) {
@@ -73,6 +76,13 @@ public class MyHeap<T extends Comparable<T>>
 	data[index] = null;
 	size--;
 	return removedData;
+    }
+
+    public T peek() {
+	if (size == 0) {
+	    throw new NoSuchElementException();
+	}
+	return data[1];
     }
     
     public void add(T x) {
