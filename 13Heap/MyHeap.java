@@ -3,13 +3,17 @@ import java.util.*;
 
 public class MyHeap<T extends Comparable<T>>
 {
-   private int size;
-   private T[] data;
+    private int size;
+    private T[] data;
+    private boolean isMax;
 
     public MyHeap() {
-	
+
     }
     public MyHeap(T[] array) {
+	for (int i = 0; i < array.length; i++) {
+	    data[i] = array[i];
+	}
 	heapify();
 	size = array.length - 1;
     }
@@ -21,11 +25,11 @@ public class MyHeap<T extends Comparable<T>>
       -data[k] and is a valid heap
     **/
     private void pushDown(int k) {
-	if (data[k*2].compareTo(data[k]) > 0) { //left child is larger
+	if (compare(data[k*2], data[k]) > 0) { //left child is larger
 	    swap(k*2, k);
 	    pushDown(k*2);
 	}
-	else if (data[k*2+1].compareTo(data[k]) > 0) { //right child is larger
+	else if (compare(data[k*2+1], data[k]) > 0) { //right child is larger
 	    swap(k*2+1, k);
 	    pushDown(k*2+1);
 	}
@@ -41,7 +45,7 @@ public class MyHeap<T extends Comparable<T>>
    **/
     private void pushUp(int k) {
 	if (k != 1) { /*if k isn't the root*/
-	    if (data[k].compareTo(data[(k / 2)]) > 0) { /*if the child > parent*/
+	    if (compare(data[k], data[(k / 2)]) > 0) { /*if the child > parent*/
 		swap(k, k/2);
 		pushUp(k/2);
 	    }
@@ -49,9 +53,10 @@ public class MyHeap<T extends Comparable<T>>
 	}
     }
 
-    //not done
     private void heapify() {
-	
+	for (int i = size/2; i > 0; i--) {
+	    pushDown(i);
+	}
     }
     
     public T delete() {
@@ -100,14 +105,23 @@ public class MyHeap<T extends Comparable<T>>
 	data[index2] = temp;
     }
 
-    //not done
+    //write this -- the crux of isMax and isMin
+    private int compare(T value1, T value2) {
+	if (isMax) {
+	    return value1.compareTo(value2);
+	} else {
+	    return value2.compareTo(value1);
+	}
+    }
     
     //do this last
     public MyHeap(boolean isMax) {
-
+	this.isMax = isMax;
     }
+    
     public MyHeap(T[] array, boolean isMax) {
-
+	this(array);
+	this.isMax = isMax;
     }
-
+    
 }
