@@ -8,7 +8,7 @@ public class MyHeap<T extends Comparable<T>>
     private boolean isMax;
 
     public MyHeap() {
-	data = new int[10];
+	data = (T[]) new Object[10];
     }
     public MyHeap(T[] array) {
 	for (int i = 0; i < array.length; i++) {
@@ -33,7 +33,7 @@ public class MyHeap<T extends Comparable<T>>
 	    swap(k*2+1, k);
 	    pushDown(k*2+1);
 	}
-	//no child is larger
+	//children are not larger
     }
     
     /**pushUp
@@ -86,7 +86,7 @@ public class MyHeap<T extends Comparable<T>>
     }
     
     public void add(T x) {
-	if (size == data.length + 1) {
+	if (size == data.length - 1) {
 	    doubleSize();
 	}
 	data[size+1] = x;
