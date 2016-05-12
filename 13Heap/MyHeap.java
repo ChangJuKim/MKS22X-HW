@@ -8,7 +8,7 @@ public class MyHeap<T extends Comparable<T>>
     private boolean isMax;
 
     public MyHeap() {
-
+	data = (T[]) new Object[10];
     }
     public MyHeap(T[] array) {
 	for (int i = 0; i < array.length; i++) {
